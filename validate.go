@@ -63,14 +63,18 @@ func IsPalindrome(str string) bool {
 
 	lower := strings.ToLower(str)
 	runes := []rune(lower)
-	i := len(runes) - 1
+	right := len(runes) - 1
 
-	for _, r := range runes {
-		if r != runes[i] {
+	for i, r := range runes {
+		if r != runes[right] {
 			return false
 		}
 
-		i--
+		if i > len(runes)/2 {
+			break
+		}
+
+		right--
 	}
 
 	return true

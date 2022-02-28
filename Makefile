@@ -8,8 +8,8 @@ policy.wasm: $(SOURCE_FILES) go.mod go.sum
 	docker run --rm -v ${PWD}:/src -w /src tinygo/tinygo:0.18.0 tinygo build \
 		-o policy.wasm -target=wasi -no-debug .
 
-annotated-policy.wasm: policy.wasm metadata.yml
-	kwctl annotate -m metadata.yml -o annotated-policy.wasm policy.wasm
+annotated-policy.wasm: policy.wasm metadata.yaml
+	kwctl annotate -m metadata.yaml -o annotated-policy.wasm policy.wasm
 
 .PHONY: test
 test:

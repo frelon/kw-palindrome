@@ -1,0 +1,17 @@
+rules:
+- apiGroups: [""]
+  apiVersions: ["v1"]
+  resources: ["pods"]
+  operations: ["CREATE"]
+mutating: false
+contextAware: false
+executionMode: kubewarden-wapc
+annotations:
+  io.kubewarden.policy.title: palindrome
+  io.kubewarden.policy.description: Reject resources with labels that are palindromes
+  io.kubewarden.policy.author: Fredrik Lönnegren
+  io.kubewarden.policy.url: https://github.com/frelon/kw-palindrome
+  io.kubewarden.policy.source: https://github.com/frelon/kw-palindrome
+  io.kubewarden.policy.license: Apache-2.0
+  io.kubewarden.policy.usage: |
+    Palindrome kubewarden policy
