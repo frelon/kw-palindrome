@@ -54,6 +54,12 @@ func validate(payload []byte) ([]byte, error) {
 	return kubewarden.AcceptRequest()
 }
 
+// validateSettings validates settings for this policy, currently it accepts
+// any settings.
+func validateSettings(payload []byte) ([]byte, error) {
+	return kubewarden.AcceptSettings()
+}
+
 // IsPalindrome will return true if the input string is a palindrome and false
 // otherwise.
 func IsPalindrome(str string) bool {
