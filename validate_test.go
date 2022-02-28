@@ -61,6 +61,7 @@ func TestRejection(t *testing.T) {
 
 func TestIsPalindrome_Palindromes(t *testing.T) {
 	palindromes := []string{
+		"",
 		"madam",
 		"aba",
 		"1221",
@@ -81,7 +82,6 @@ func TestIsPalindrome_Palindromes(t *testing.T) {
 
 func TestIsPalindrome_NotPalindromes(t *testing.T) {
 	words := []string{
-		"",
 		"abc",
 		"123",
 		"hello testing",

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 
 	onelog "github.com/francoispqt/onelog"
@@ -29,17 +30,17 @@ func validate(payload []byte) ([]byte, error) {
 		e.String("namespace", namespace)
 	})
 
-	for k := range labels {
-		if IsPalindrome(k) {
+	for label := range labels {
+		if IsPalindrome(label) {
 			logger.DebugWithFields("rejecting object", func(e onelog.Entry) {
 				namespace := gjson.GetBytes(payload, "request.object.metadata.namespace").String()
 				name := gjson.GetBytes(payload, "request.object.metadata.name").String()
 				e.String("name", name)
 				e.String("namespace", namespace)
-				e.String("label_name", k)
+				e.String("label_name", label)
 			})
 
-			return kubewarden.RejectRequest(kubewarden.Message("rejecting palindrome labels"), kubewarden.NoCode)
+			return kubewarden.RejectRequest(kubewarden.Message(fmt.Sprintf("rejecting palindrome label '%v'", label)), kubewarden.NoCode)
 		}
 
 		logger.DebugWithFields("label OK", func(e onelog.Entry) {
@@ -47,7 +48,7 @@ func validate(payload []byte) ([]byte, error) {
 			name := gjson.GetBytes(payload, "request.object.metadata.name").String()
 			e.String("name", name)
 			e.String("namespace", namespace)
-			e.String("label_name", k)
+			e.String("label_name", label)
 		})
 	}
 
@@ -63,10 +64,6 @@ func validateSettings(payload []byte) ([]byte, error) {
 // IsPalindrome will return true if the input string is a palindrome and false
 // otherwise.
 func IsPalindrome(str string) bool {
-	if len(str) == 0 {
-		return false
-	}
-
 	lower := strings.ToLower(str)
 	runes := []rune(lower)
 	right := len(runes) - 1
