@@ -1,0 +1,23 @@
+{
+    "object": {
+        "apiVersion": "v1",
+        "kind": "Pod",
+        "metadata": {
+            "labels": {
+                "env": "production"
+            },
+            "name": "hello-world",
+            "namespace": "default"
+        },
+        "spec": {
+            "containers": [
+                {
+                    "image": "nginx",
+                    "imagePullPolicy": "Always",
+                    "name": "nginx"
+                }
+            ]
+        }
+    }
+}
+
